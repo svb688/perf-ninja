@@ -9,7 +9,7 @@ int main() {
     arr[i] = i + 1;
   }
 
-  int result = solution(arr, N);
+  int result = solution(N);
   if (result != (N * (N + 1)) / 2) {
     std::cerr << "Validation Failed. Result = " << result
               << ". Expected = " << 6 << std::endl;

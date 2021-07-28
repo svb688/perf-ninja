@@ -15,5 +15,8 @@ __pycache__
 build_solution
 build_baseline
 build
+bin_release
+bin_debug
+*perf.data
 results.json
 /tools/benchmark/

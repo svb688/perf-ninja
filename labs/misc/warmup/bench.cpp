@@ -14,7 +14,7 @@ static void bench1(benchmark::State &state) {
 
   // benchmark
   for (auto _ : state) {
-    result = solution(arr, N);
+    result = solution(N);
     benchmark::DoNotOptimize(arr);
   }
 }
