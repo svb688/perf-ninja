@@ -1,0 +1,6 @@
+[requires]
+benchmark/1.5.3
+
+[generators]
+cmake_find_package
+cmake_paths

@@ -1,5 +1,7 @@
 # https://cmake.org/documentation/
 
+include(conan_paths OPTIONAL)
+
 # Check usage of 'build' subdirectory
 if("${CMAKE_SOURCE_DIR}" STREQUAL "${CMAKE_BINARY_DIR}")
   message("CMAKE_BINARY_DIR=${CMAKE_BINARY_DIR}")
@@ -29,8 +31,11 @@ endif()
 set(CMAKE_CXX_FLAGS "${CMAKE_C_FLAGS} ${CMAKE_CXX_FLAGS}")
 
 # https://github.com/google/benchmark
-set(BENCHMARK_FOLDER "${CMAKE_CURRENT_LIST_DIR}/benchmark")
-find_library(BENCHMARK_LIBRARY NAMES benchmark PATHS "${BENCHMARK_FOLDER}/build/src/Release" "${BENCHMARK_FOLDER}/build/src" REQUIRED)
+find_package(benchmark)
+if(NOT TARGET benchmark::benchmark)
+  set(BENCHMARK_FOLDER "${CMAKE_CURRENT_LIST_DIR}/benchmark")
+  find_library(BENCHMARK_LIBRARY NAMES benchmark PATHS "${BENCHMARK_FOLDER}/build/src/Release" "${BENCHMARK_FOLDER}/build/src" REQUIRED)
+endif()
 
 # Find source files
 file(GLOB srcs *.c *.h *.cpp *.hpp *.cxx *.hxx *.inl)
@@ -41,8 +46,11 @@ list(FILTER srcs EXCLUDE REGEX ".*validate.cpp$")
 add_executable(lab bench.cpp ${srcs})
 add_executable(validate validate.cpp ${srcs})
 
-# Add path to a local benchmark library
-if(EXISTS "${BENCHMARK_FOLDER}/include")
+if(TARGET benchmark::benchmark)
+  target_link_libraries(lab PRIVATE benchmark::benchmark)
+  target_link_libraries(validate PRIVATE benchmark::benchmark)
+elseif(EXISTS "${BENCHMARK_FOLDER}/include")
+  # Add path to a local benchmark library
   target_include_directories(lab BEFORE PRIVATE "${BENCHMARK_FOLDER}/include")
   target_include_directories(validate BEFORE PRIVATE "${BENCHMARK_FOLDER}/include")
 endif()
@@ -92,8 +100,12 @@ endif()
 
 # Other settings
 if(NOT MSVC)
-  target_link_libraries(lab ${BENCHMARK_LIBRARY} pthread m)
-  target_link_libraries(validate ${BENCHMARK_LIBRARY} pthread m)
+  if(NOT TARGET benchmark::benchmark)
+    target_link_libraries(lab PRIVATE ${BENCHMARK_LIBRARY})
+    target_link_libraries(validate PRIVATE ${BENCHMARK_LIBRARY})
+  endif()
+  target_link_libraries(lab PRIVATE pthread m)
+  target_link_libraries(validate PRIVATE pthread m)
 
   # MinGW
   if(MINGW)

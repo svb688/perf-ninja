@@ -17,3 +17,9 @@ build_baseline
 build
 results.json
 /tools/benchmark/
+Findbenchmark.cmake
+conan.lock
+conan_paths.cmake
+conanbuildinfo.txt
+conaninfo.txt
+graph_info.json

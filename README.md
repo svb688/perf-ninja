@@ -39,3 +39,11 @@ We warmly welcome contributions! Here is how you can help the project:
 Please write to dendibakh@gmail.com with suggestions.
 
 Copyright © 2021 by Denis Bakhvalov under Creative Commons license (CC BY 4.0).
+
+## Conan support
+
+Use conan to install benchmark and set up cmake modules:
+
+$ conan install . -if tools
+
+Now continue as before - no need to build benchmark in the tools subdirectory
