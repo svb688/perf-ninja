@@ -4,15 +4,15 @@
 
 void init(std::array<S, N> &arr) {
   std::default_random_engine generator;
-  std::uniform_int_distribution<int> distribution(minRandom, maxRandom - 1);
+  std::uniform_int_distribution<uint8_t> distribution(minRandom, maxRandom - 1);
 
   for (int i = 0; i < N; i++) {
-    int random_int1 = distribution(generator);
-    int random_int2 = distribution(generator);
+      uint8_t random_int1 = distribution(generator);
+      uint8_t random_int2 = distribution(generator);
 
     arr[i].i = random_int1; // only need to be 8 bit
-    arr[i].s = static_cast<short>(random_int2) | ((random_int1 < random_int2) << 7); // 8 bits as well
-    arr[i].l = static_cast<long long>(random_int1) * random_int2; // 99 * 99 = 9801 need to be short
-    arr[i].d = static_cast<double>(random_int1) / maxRandom; // could be downgrade to float
+    arr[i].s = random_int2 | ((random_int1 < random_int2) << 7); // 8 bits as well
+    arr[i].l = random_int1 * random_int2; // 99 * 99 = 9801 need to be short
+    arr[i].d = static_cast<float>(random_int1) / maxRandom; // could be downgrade to float
   }
 }
