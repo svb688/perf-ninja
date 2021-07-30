@@ -10,10 +10,9 @@ void init(std::array<S, N> &arr) {
     int random_int1 = distribution(generator);
     int random_int2 = distribution(generator);
 
-    arr[i].i = random_int1;
-    arr[i].s = static_cast<short>(random_int2);
-    arr[i].l = static_cast<long long>(random_int1) * random_int2;
-    arr[i].d = static_cast<double>(random_int1) / maxRandom;
-    arr[i].b = random_int1 < random_int2;
+    arr[i].i = random_int1; // only need to be 8 bit
+    arr[i].s = static_cast<short>(random_int2) | ((random_int1 < random_int2) << 7); // 8 bits as well
+    arr[i].l = static_cast<long long>(random_int1) * random_int2; // 99 * 99 = 9801 need to be short
+    arr[i].d = static_cast<double>(random_int1) / maxRandom; // could be downgrade to float
   }
 }
