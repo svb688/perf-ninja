@@ -14,6 +14,8 @@ struct S {
     uint8_t i : 7; // 0-99 = 7 bits
     uint8_t s : 7; // 0-99 = 7 bits
     bool b : 1; // bit shift it into s
+    S() = default;
+    S(float d, unsigned short l, uint8_t i, uint8_t s, bool b): d(d),l(l),i(i),s(s), b(b){}
     // TODO: do float really need to be decimal? It all values will be between 0.0 and 0.99
 
     bool operator<(const S &s) const { return this->i < s.i; }
