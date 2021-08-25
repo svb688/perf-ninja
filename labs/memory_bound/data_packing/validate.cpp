@@ -26,7 +26,7 @@ bool check_entry(int first, int second) {
   const auto expected_l = static_cast<short>(first * second);
   result = validate("l", entry.l, expected_l, first, second) && result;
 
-  const auto expected_d = static_cast<double>(first) / maxRandom;
+  const auto expected_d = static_cast<float>(first) / maxRandom;
   result = validate("d", entry.d, expected_d, first, second) && result;
 
   const auto expected_b = (first < second);
