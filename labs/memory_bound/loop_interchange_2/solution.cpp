@@ -4,6 +4,16 @@
 #include <fstream>
 #include <ios>
 
+void transpose(const uint8_t* src, uint8_t* dest, const size_t width, const size_t height)
+{
+    for (size_t r = 0; r < height; ++r) {
+        for (size_t c = 0; c < width; ++c) {
+            dest[c*height+r] = src[r*width+c];
+        }
+    }
+}
+
+
 // Applies Gaussian blur in independent vertical lines
 static void filterVertically(uint8_t *output, const uint8_t *input,
                              const int width, const int height,
@@ -129,7 +139,9 @@ void blur(uint8_t *output, const uint8_t *input, const int width,
   constexpr int shift = 4;
 
   // A pair of 1-dimensional passes to achieve 2-dimensional transform
-  filterVertically(temp, input, width, height, kernel, radius, shift);
+  transpose(input, temp, width, height);
+  filterHorizontally(output, temp, height, width, kernel, radius, shift);
+  transpose(output, temp, height, width);
   filterHorizontally(output, temp, width, height, kernel, radius, shift);
 }
 
