@@ -25,15 +25,17 @@ void identity(Matrix &result) {
 // Multiply two square matrices
 void multiply(Matrix &result, const Matrix &a, const Matrix &b) {
   zero(result);
-
+  // by swapping j and k around, we limit the jumping around the arrays in matrix b
+  // thereby using cache locality to the max.
+  // This does result in moving much more around the in result matrix, but as it is
+  // also taking locality into consideration (as it is the outer index changing), it
+  // is just fine
   for (int i = 0; i < N; i++)
   {
     for (int k = 0; k < N; k++)
     {
         for (int j = 0; j < N; j++)
-        {
           result[i][j] += a[i][k] * b[k][j];
-        }
     }
   }
 }
