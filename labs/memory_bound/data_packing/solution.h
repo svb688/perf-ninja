@@ -10,7 +10,7 @@ constexpr int maxRandom = 100;
 struct S {
 	float d;
 	char  l;
-	char  i : 8;
+	char  i;
 	char  s : 7;
 	bool  b;
 
