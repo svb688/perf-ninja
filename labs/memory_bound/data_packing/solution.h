@@ -7,13 +7,14 @@ constexpr int minRandom = 0;
 constexpr int maxRandom = 100;
 
 // FIXME: this data structure can be reduced in size
+#pragma pack 8
 struct S {
-	float	 d;
-	short	 l;
-	short	 i : 8;
-	uint16_t s : 7;
-	bool	 b : 1;
-	bool	 operator<(const S &s) const { return this->i < s.i; }
+	float	  d;
+	long long l : 16;
+	int		  i : 8;
+	short	  s : 7;
+	bool	  b : 1;
+	bool	  operator<(const S &s) const { return this->i < s.i; }
 };
 
 template <int N>
