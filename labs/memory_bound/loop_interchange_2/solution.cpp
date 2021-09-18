@@ -3,6 +3,7 @@
 #include <algorithm>
 #include <fstream>
 #include <ios>
+#include <string.h>
 
 // Applies Gaussian blur in independent vertical lines
 static void filterVertically(uint8_t *output, const uint8_t *input,
