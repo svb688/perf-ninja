@@ -9,10 +9,10 @@ constexpr int maxRandom = 100;
 // FIXME: this data structure can be reduced in size
 struct S {
 	float d;
-	char  l;
-	char  i;
-	char  s : 7;
+	int	  l : 15;
 	bool  b;
+	int	  i : 8;
+	int	  s : 8;
 	bool  operator<(const S &s) const { return this->i < s.i; }
 };
 
