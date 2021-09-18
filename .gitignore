@@ -15,5 +15,6 @@ __pycache__
 build_solution
 build_baseline
 build
+build*
 results.json
 /tools/benchmark/
