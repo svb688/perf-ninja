@@ -13,8 +13,7 @@ struct S {
 	char  i;
 	char  s : 7;
 	bool  b;
-
-	bool operator<(const S &s) const { return this->i < s.i; }
+	bool  operator<(const S &s) const { return this->i < s.i; }
 };
 
 template <int N>
