@@ -33,8 +33,9 @@ static void filterVertically(uint8_t *output, const uint8_t *input,
 	}
 
 	// Middle part of computations with full kernel
+	int *dot = new int[width];
 	for (int r = radius; r < height - radius; r++) {
-		int *dot = new int[width];
+
 		memset(dot, 0, width * sizeof(int));
 
 		// Accumulation
@@ -48,8 +49,8 @@ static void filterVertically(uint8_t *output, const uint8_t *input,
 			int value = (dot[c] + rounding) >> shift;
 			output[r * width + c] = static_cast<uint8_t>(value);
 		}
-		delete[] dot;
 	}
+	delete[] dot;
 
 	// Bottom part of line, partial kernel
 	for (int r = std::max(radius, height - radius); r < height; r++) {
