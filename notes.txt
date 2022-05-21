@@ -1,0 +1,20 @@
+========================================================================================
+// building with clang
+mkdir build && cd build
+cmake .. -DCMAKE_C_COMPILER=clang-12 -DCMAKE_CXX_COMPILER=clang++-12
+make -j8
+
+========================================================================================
+// to get size of a class, Scott Meyer's trick
+template<int N>
+class TD;
+
+TD<sizeof(S)> td;
+
+========================================================================================
+// to see branch misprediction
+perf stat --topdown -a taskset -c 0 ./lab
+
+========================================================================================
+// to see cache lines pulled
+perf stat -e task-clock,cycles,instructions,cache-references,cache-misses  ./lab

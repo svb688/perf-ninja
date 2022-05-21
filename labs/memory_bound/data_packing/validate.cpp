@@ -12,7 +12,7 @@ static void reportError(const char *var_name, Received_t received,
 }
 
 bool check_entry(int first, int second) {
-  S entry = create_entry(first, second);
+  S1 entry = create_entry(first, second);
 
   bool isValid = true;
 
@@ -48,7 +48,7 @@ bool check_entry(int first, int second) {
 }
 
 int main() {
-  std::array<S, N> arr;
+  std::array<S1, N> arr;
   init(arr);
 
   auto expected = arr;
